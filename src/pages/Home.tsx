@@ -1,10 +1,14 @@
+import UserResults from 'components/users/UserResults'
+
 interface IHomeProps {}
 
 const Home: React.FC<IHomeProps> = () => {
   return (
-    <div>
-      <h1 className='text-6xl'>Welcome</h1>
-    </div>
+    <>
+      {/* TODO: Search Component  */}
+
+      <UserResults />
+    </>
   )
 }
 
