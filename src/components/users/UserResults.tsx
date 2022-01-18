@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { IUser } from 'utils/SharedUtils'
 import Spinner from 'components/layout/Spinner'
+import UserItem from 'components/users/UserItem'
 
 interface IUserResultsProps {}
 
@@ -32,7 +33,7 @@ const UserResults: React.FC<IUserResultsProps> = ({}) => {
   } else {
     return (
       <div className='grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2'>
-        {users && users.map(user => <h3 key={user.id}>{user.login}</h3>)}
+        {users && users.map(user => <UserItem key={user.id} user={user} />)}
       </div>
     )
   }
