@@ -1,3 +1,4 @@
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { IUser } from 'utils/SharedUtils'
 
@@ -27,4 +28,4 @@ const UserItem: React.FC<IUserItemProps> = ({ user: { login, avatar_url } }) => 
   )
 }
 
-export default UserItem
+export default React.memo(UserItem)

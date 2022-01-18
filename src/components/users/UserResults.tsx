@@ -1,3 +1,4 @@
+import React from 'react'
 import { useContext } from 'react'
 import GithubContext from 'context/github/GithubContext'
 import Spinner from 'components/layout/Spinner'
@@ -17,4 +18,4 @@ const UserResults: React.FC = () => {
   }
 }
 
-export default UserResults
+export default React.memo(UserResults)
