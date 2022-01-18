@@ -5,7 +5,7 @@ import { IUser } from 'utils/SharedUtils'
 export interface IFeedbackContext {
   users: IUser[]
   loading: boolean
-  fetchUsers?: () => void
+  searchUsers?: (text: string) => void
 }
 
 const defaultState: IFeedbackContext = {
@@ -21,30 +21,34 @@ const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN
 export const GithubProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(githubReducer, defaultState)
 
-  // Get initial users (testing purposes)
-  const fetchUsers = async () => {
+  // Get search results
+  const searchUsers = async (text: string) => {
     setLoading()
-    const response = await fetch(`${GITHUB_URL}/users`, {
+
+    const params = new URLSearchParams({ q: text })
+
+    const response = await fetch(`${GITHUB_URL}/search/users?${params}`, {
       headers: {
         Authorization: `token ${GITHUB_TOKEN}`,
       },
     })
 
-    const data: IUser[] = await response.json()
+    const data = await response.json()
+    const items: IUser[] = data.items
 
-    console.log(data)
+    console.log(items)
 
-    data &&
+    items &&
       dispatch({
         type: 'GET_USERS',
-        payload: data,
+        payload: items,
       })
   }
 
   const setLoading = () => dispatch({ type: 'SET_LOADING' })
 
   return (
-    <GithubContext.Provider value={{ users: state.users, loading: state.loading, fetchUsers }}>
+    <GithubContext.Provider value={{ users: state.users, loading: state.loading, searchUsers }}>
       {children}
     </GithubContext.Provider>
   )

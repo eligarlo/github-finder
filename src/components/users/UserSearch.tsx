@@ -3,7 +3,7 @@ import GithubContext from 'context/github/GithubContext'
 
 const UserSearch: React.FC = () => {
   const [text, setText] = useState<string>('')
-  const { users } = useContext(GithubContext)
+  const { users, searchUsers } = useContext(GithubContext)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setText(e.target.value)
 
@@ -14,7 +14,7 @@ const UserSearch: React.FC = () => {
       alert('Please enter something')
       setText('')
     } else {
-      // TODO: - search users
+      searchUsers && searchUsers(text)
 
       setText('')
     }
