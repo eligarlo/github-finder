@@ -25,6 +25,12 @@ const About: React.FC<IAboutProps> = () => {
           Hassib Moddasser
         </a>
       </p>
+      <p className='text-lg text-gray-400'>
+        Project Code Using TypeScript:
+        <a className='text-white ml-2' href='https://github.com/eligarlo/github-finder'>
+          Github
+        </a>
+      </p>
     </>
   )
 }
