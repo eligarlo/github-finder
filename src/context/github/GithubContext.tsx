@@ -6,6 +6,7 @@ export interface IFeedbackContext {
   users: IUser[]
   loading: boolean
   searchUsers?: (text: string) => void
+  clearUsers?: () => void
 }
 
 const defaultState: IFeedbackContext = {
@@ -45,10 +46,16 @@ export const GithubProvider: React.FC = ({ children }) => {
       })
   }
 
+  // Clear users from state
+  const clearUsers = () => dispatch({ type: 'CLEAR_USERS' })
+
+  // Set loading
   const setLoading = () => dispatch({ type: 'SET_LOADING' })
 
   return (
-    <GithubContext.Provider value={{ users: state.users, loading: state.loading, searchUsers }}>
+    <GithubContext.Provider
+      value={{ users: state.users, loading: state.loading, searchUsers, clearUsers }}
+    >
       {children}
     </GithubContext.Provider>
   )
