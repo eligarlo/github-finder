@@ -3,3 +3,7 @@ export interface IUser {
   login: string
   avatar_url: string
 }
+
+export interface IContextProps {
+  children: React.ReactNode
+}

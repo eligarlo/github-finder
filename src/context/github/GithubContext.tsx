@@ -1,6 +1,6 @@
 import { createContext, useReducer } from 'react'
 import githubReducer from 'context/github/GithubReducer'
-import { IUser } from 'utils/SharedUtils'
+import { IContextProps, IUser } from 'utils/SharedUtils'
 
 export interface IFeedbackContext {
   users: IUser[]
@@ -19,7 +19,7 @@ const GithubContext = createContext(defaultState)
 const GITHUB_URL = process.env.REACT_APP_GITHUB_URL
 const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN
 
-export const GithubProvider: React.FC = ({ children }) => {
+export const GithubProvider: React.FC<IContextProps> = ({ children }) => {
   const [state, dispatch] = useReducer(githubReducer, defaultState)
 
   // Get search results
