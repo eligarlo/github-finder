@@ -5,6 +5,7 @@ import { AlertProvider } from 'context/alert/AlertContext'
 // Pages
 import Home from 'pages/Home'
 import About from 'pages/About'
+import User from 'pages/User'
 import NotFound from 'pages/NotFound'
 // Components
 import Navbar from 'components/layout/Navbar'
@@ -24,6 +25,7 @@ const App: React.FC = () => {
               <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/about' element={<About />} />
+                <Route path='/user/:login' element={<User />} />
                 <Route path='/notfound' element={<NotFound />} />
                 <Route path='/*' element={<NotFound />} />
               </Routes>
