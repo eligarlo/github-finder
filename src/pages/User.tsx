@@ -8,6 +8,23 @@ import RepoList from 'components/repos/RepoList'
 const User: React.FC = () => {
   const { user, getUser, loading, repos, getUserRepos } = useContext(GithubContext)
 
+  const {
+    avatar_url,
+    name,
+    login,
+    type,
+    hireable,
+    bio,
+    html_url,
+    location,
+    blog,
+    twitter_username,
+    followers,
+    following,
+    public_repos,
+    public_gists,
+  } = user
+
   const params = useParams<{ login: string }>()
 
   useEffect(() => {
@@ -32,11 +49,11 @@ const User: React.FC = () => {
           <div className='custom-card-image mb-6 md:mb-0'>
             <div className='rounded-lg shadow-xl card image-full'>
               <figure>
-                <img src={user && user.avatar_url} alt='' />
+                <img src={avatar_url} alt='' />
               </figure>
               <div className='card-body justify-end'>
-                <h2 className='card-title mb-0'>{user && user.name}</h2>
-                <p>{user && user.login}</p>
+                <h2 className='card-title mb-0'>{name}</h2>
+                <p>{login}</p>
               </div>
             </div>
           </div>
@@ -44,50 +61,45 @@ const User: React.FC = () => {
           <div className='col-span-2'>
             <div className='mb-6'>
               <h1 className='text-3xl card-title'>
-                {user && user.name}
-                <div className='ml-2 mr-1 badge badge-success'>{user && user.type}</div>
-                {user && user.hireable && <div className='mx-1 badge badge-info'>Hireable</div>}
+                {name}
+                <div className='ml-2 mr-1 badge badge-success'>{type}</div>
+                {hireable && <div className='mx-1 badge badge-info'>Hireable</div>}
               </h1>
-              <p>{user && user.bio}</p>
+              <p>{bio}</p>
               <div className='mt-4 card-actions'>
-                <a
-                  href={user && user.html_url}
-                  target='_blank'
-                  rel='noreferrer'
-                  className='btn btn-outline'
-                >
+                <a href={html_url} target='_blank' rel='noreferrer' className='btn btn-outline'>
                   Visit Github Profile
                 </a>
               </div>
             </div>
 
             <div className='w-full rounded-lg shadow-md bg-base-100 stats'>
-              {user && user.location && (
+              {location && (
                 <div className='stat'>
                   <div className='stat-title text-md'>Location</div>
-                  <div className='text-lg stat-value'>{user.location}</div>
+                  <div className='text-lg stat-value'>{location}</div>
                 </div>
               )}
-              {user && user.blog && (
+              {blog && (
                 <div className='stat'>
                   <div className='stat-title text-md'>Website</div>
                   <div className='text-lg stat-value'>
-                    <a href={`https://${user.blog}`} target='_blank' rel='noreferrer'>
-                      {user.blog}
+                    <a href={`https://${blog}`} target='_blank' rel='noreferrer'>
+                      {blog}
                     </a>
                   </div>
                 </div>
               )}
-              {user && user.twitter_username && (
+              {twitter_username && (
                 <div className='stat'>
                   <div className='stat-title text-md'>Twitter</div>
                   <div className='text-lg stat-value'>
                     <a
-                      href={`https://twitter.com/${user.twitter_username}`}
+                      href={`https://twitter.com/${twitter_username}`}
                       target='_blank'
                       rel='noreferrer'
                     >
-                      {user.twitter_username}
+                      {twitter_username}
                     </a>
                   </div>
                 </div>
@@ -102,7 +114,7 @@ const User: React.FC = () => {
               <FaUsers className='text-3xl md:text-5xl' />
             </div>
             <div className='stat-title pr-5'>Followers</div>
-            <div className='stat-value pr-5 text-3xl md:text-4xl'>{user && user.followers}</div>
+            <div className='stat-value pr-5 text-3xl md:text-4xl'>{followers}</div>
           </div>
 
           <div className='stat'>
@@ -110,7 +122,7 @@ const User: React.FC = () => {
               <FaUserFriends className='text-3xl md:text-5xl' />
             </div>
             <div className='stat-title pr-5'>Following</div>
-            <div className='stat-value pr-5 text-3xl md:text-4xl'>{user && user.following}</div>
+            <div className='stat-value pr-5 text-3xl md:text-4xl'>{following}</div>
           </div>
 
           <div className='stat'>
@@ -118,7 +130,7 @@ const User: React.FC = () => {
               <FaCodepen className='text-3xl md:text-5xl' />
             </div>
             <div className='stat-title pr-5'>Public Repos</div>
-            <div className='stat-value pr-5 text-3xl md:text-4xl'>{user && user.public_repos}</div>
+            <div className='stat-value pr-5 text-3xl md:text-4xl'>{public_repos}</div>
           </div>
 
           <div className='stat'>
@@ -126,7 +138,7 @@ const User: React.FC = () => {
               <FaStore className='text-3xl md:text-5xl' />
             </div>
             <div className='stat-title pr-5'>Public Gists</div>
-            <div className='stat-value pr-5 text-3xl md:text-4xl'>{user && user.public_gists}</div>
+            <div className='stat-value pr-5 text-3xl md:text-4xl'>{public_gists}</div>
           </div>
         </div>
 

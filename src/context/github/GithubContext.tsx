@@ -4,8 +4,8 @@ import { IContextProps, IRepo, IUser } from 'utils/SharedUtils'
 
 export interface IFeedbackContext {
   users: IUser[]
-  user?: IUser
-  repos?: IRepo[] | []
+  user: IUser
+  repos: IRepo[]
   loading: boolean
   searchUsers?: (text: string) => void
   clearUsers?: () => void
@@ -14,7 +14,9 @@ export interface IFeedbackContext {
 }
 
 const defaultState: IFeedbackContext = {
-  users: [],
+  users: [] as IUser[],
+  user: {} as IUser,
+  repos: [] as IRepo[],
   loading: false,
 }
 
@@ -104,10 +106,7 @@ export const GithubProvider: React.FC<IContextProps> = ({ children }) => {
   return (
     <GithubContext.Provider
       value={{
-        users: state.users,
-        user: state.user,
-        repos: state.repos,
-        loading: state.loading,
+        ...state,
         searchUsers,
         clearUsers,
         getUser,
