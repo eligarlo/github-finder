@@ -5,7 +5,7 @@ import AlertContext from 'context/alert/AlertContext'
 
 const UserSearch: React.FC = () => {
   const [text, setText] = useState<string>('')
-  const { users, clearUsers, dispatch } = useContext(GithubContext)
+  const { users, dispatch } = useContext(GithubContext)
   const { setAlert } = useContext(AlertContext)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setText(e.target.value)
@@ -26,6 +26,8 @@ const UserSearch: React.FC = () => {
       setText('')
     }
   }
+
+  const handleClearUsers = () => dispatch && dispatch({ type: 'CLEAR_USERS' })
 
   return (
     <div className='grid grid-cols-1 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-2 mb-8 gap-8'>
@@ -52,7 +54,7 @@ const UserSearch: React.FC = () => {
       </div>
       {users.length > 0 && (
         <div>
-          <button onClick={clearUsers} className='btn btn-ghost btn-lg'>
+          <button onClick={handleClearUsers} className='btn btn-ghost btn-lg'>
             Clear
           </button>
         </div>

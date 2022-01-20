@@ -4,9 +4,10 @@ import { FaCodepen, FaStore, FaUserFriends, FaUsers } from 'react-icons/fa'
 import GithubContext from 'context/github/GithubContext'
 import Spinner from 'components/layout/Spinner'
 import RepoList from 'components/repos/RepoList'
+import { getUser, getUserRepos } from 'context/github/GithubActions'
 
 const User: React.FC = () => {
-  const { user, getUser, loading, repos, getUserRepos } = useContext(GithubContext)
+  const { user, loading, repos, dispatch } = useContext(GithubContext)
 
   const {
     avatar_url,
@@ -28,9 +29,19 @@ const User: React.FC = () => {
   const params = useParams<{ login: string }>()
 
   useEffect(() => {
-    getUser && getUser(params.login)
-    getUserRepos && getUserRepos(params.login)
-  }, [])
+    if (dispatch) {
+      dispatch({ type: 'SET_LOADING' })
+      const getUserData = async () => {
+        const userData = await getUser(params.login)
+        dispatch({ type: 'GET_USER', payload: userData })
+
+        const userRepoData = await getUserRepos(params.login)
+        dispatch({ type: 'GET_REPOS', payload: userRepoData })
+      }
+
+      getUserData()
+    }
+  }, [dispatch, params.login])
 
   if (loading) {
     return <Spinner />
