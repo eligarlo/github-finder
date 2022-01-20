@@ -7,6 +7,7 @@ export interface IFeedbackContext {
   user: IUser
   repos: IRepo[]
   loading: boolean
+  dispatch?: (value: any) => void
   searchUsers?: (text: string) => void
   clearUsers?: () => void
   getUser?: (login: string | undefined) => void
@@ -27,28 +28,6 @@ const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN
 
 export const GithubProvider: React.FC<IContextProps> = ({ children }) => {
   const [state, dispatch] = useReducer(githubReducer, defaultState)
-
-  // Get search results
-  const searchUsers = async (text: string) => {
-    setLoading()
-
-    const params = new URLSearchParams({ q: text })
-
-    const response = await fetch(`${GITHUB_URL}/search/users?${params}`, {
-      headers: {
-        Authorization: `token ${GITHUB_TOKEN}`,
-      },
-    })
-
-    const data = await response.json()
-    const items: IUser[] = data.items
-
-    items &&
-      dispatch({
-        type: 'GET_USERS',
-        payload: items,
-      })
-  }
 
   // Get single user
   const getUser = async (login: string | undefined) => {
@@ -107,7 +86,7 @@ export const GithubProvider: React.FC<IContextProps> = ({ children }) => {
     <GithubContext.Provider
       value={{
         ...state,
-        searchUsers,
+        dispatch,
         clearUsers,
         getUser,
         getUserRepos,
